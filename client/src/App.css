@@ -136,6 +136,19 @@ body {
   color: #333;
 }
 
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.challenge-status {
+  font-size: 0.85rem;
+  color: #ffa726;
+  font-style: italic;
+  font-weight: 400;
+}
+
 /* Game Screen */
 .game-container {
   background: white;

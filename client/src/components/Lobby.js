@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Lobby({ username, users, onChallenge, pendingChallenge, onChallengeResponse }) {
+function Lobby({ username, users, onChallenge, pendingChallenge, onChallengeResponse, outgoingChallenge }) {
   const [showChallengeModal, setShowChallengeModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState('');
   const [boardSize, setBoardSize] = useState(3);
@@ -50,7 +50,12 @@ function Lobby({ username, users, onChallenge, pendingChallenge, onChallengeResp
       <div className="user-list">
         {availableUsers.map(user => (
           <div key={user} className="user-item">
-            <span className="user-name">{user}</span>
+            <div className="user-info">
+              <span className="user-name">{user}</span>
+              {outgoingChallenge === user && (
+                <span className="challenge-status">waiting on challenge...</span>
+              )}
+            </div>
             <button onClick={() => handleChallengeClick(user)}>
               Challenge
             </button>

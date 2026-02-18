@@ -17,6 +17,7 @@ function App() {
   const [lobbyUsers, setLobbyUsers] = useState([]);
   const [gameState, setGameState] = useState(null);
   const [pendingChallenge, setPendingChallenge] = useState(null);
+  const [outgoingChallenge, setOutgoingChallenge] = useState(null); // Track who we challenged
   const [error, setError] = useState('');
 
   // Initialize socket connection
@@ -58,6 +59,7 @@ function App() {
     socket.on('challenge_declined', ({ target }) => {
       setError(`${target} declined your challenge`);
       setTimeout(() => setError(''), 3000);
+      setOutgoingChallenge(null); // Clear outgoing challenge
     });
 
     // Game start
@@ -65,6 +67,7 @@ function App() {
       setGameState(game);
       setScreen('game');
       setPendingChallenge(null);
+      setOutgoingChallenge(null); // Clear outgoing challenge
     });
 
     // Game update
@@ -137,6 +140,7 @@ function App() {
   const handleChallenge = (target, boardSize, winCondition) => {
     if (socket) {
       socket.emit('challenge', { target, boardSize, winCondition });
+      setOutgoingChallenge(target); // Track who we challenged
     }
   };
 
@@ -213,6 +217,7 @@ function App() {
             onChallenge={handleChallenge}
             pendingChallenge={pendingChallenge}
             onChallengeResponse={handleChallengeResponse}
+            outgoingChallenge={outgoingChallenge}
           />
         )}
 
