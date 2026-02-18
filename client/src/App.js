@@ -4,7 +4,11 @@ import Login from './components/Login';
 import Lobby from './components/Lobby';
 import Game from './components/Game';
 
-const SOCKET_URL = 'http://localhost:3001';
+// In production, connect to the same server serving the app
+// In development, connect to localhost:3001
+const SOCKET_URL = process.env.NODE_ENV === 'production' 
+  ? window.location.origin 
+  : 'http://localhost:3001';
 
 function App() {
   const [socket, setSocket] = useState(null);

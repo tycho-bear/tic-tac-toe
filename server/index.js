@@ -11,20 +11,27 @@ const app = express();
 app.use(cors());
 
 const httpServer = createServer(app);
+
+// Configure Socket.io with appropriate CORS
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: process.env.NODE_ENV === 'production' 
+      ? true  // Allow all origins in production (Render will handle the domain)
+      : "http://localhost:3000",  // Only localhost in development
     methods: ["GET", "POST"]
   }
 });
 
 const PORT = process.env.PORT || 3001;
 
-// Serve static files in production (after building React app)
+// Serve static files in production
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
+  // In Docker, the built files are in ./client-build
+  const buildPath = path.join(__dirname, 'client-build');
+  app.use(express.static(buildPath));
+  
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+    res.sendFile(path.join(buildPath, 'index.html'));
   });
 }
 
