@@ -23,13 +23,14 @@ A real-time multiplayer tic-tac-toe game where two players can connect via brows
 - Tournament/bracket modes
 - Spectator mode
 - Leaderboards and statistics
+- Hover indicator on board: when hovering over an empty cell on your turn, show a faint version of your symbol (X or O) as a preview of the potential move
 
 ## Requirements & Decisions
 
 ### Technical Requirements
 1. **Real-time communication**: WebSocket-based for instant move updates
 2. **Backend required**: Cannot use static hosting alone (GitHub Pages ruled out)
-3. **Name uniqueness**: Names must be unique per session - if "Bob" is logged in, another user cannot use "Bob"
+3. **Name uniqueness**: Names must be unique per session - if "Bob" is logged in, another user cannot use "Bob" (case-insensitive)
 4. **Board sizes**: 3x3 through 10x10
 5. **Hosting target**: Railway or Render (free tier, WebSocket support)
 
@@ -144,46 +145,60 @@ tic-tac-toe/
 - **Docker**: Will be added later for consistent deployments
 
 ## Coding Conventions
-*(To be established once we start building)*
+- Use clear, descriptive variable names
+- Keep functions focused on single responsibilities
+- Comment complex logic
+- Use ES6+ features (arrow functions, destructuring, etc.)
 
 ## Environment Notes
-- **Current dev machine**: Ubuntu (Linux)
-  - Node.js v20 NodeSource repository configured, pending installation
-  - Run `sudo apt-get install -y nodejs` when on stable wifi
-  - Then `cd server && npm install` and `cd client && npm install`
-- **Future dev machine**: Windows (project path will differ)
+- **Primary dev machine**: Windows
+  - Node.js v20.10.0, npm 10.2.3
+  - Project path: `C:\Users\Tycho\Documents\Projects\Tic-tac-toe`
+- **Secondary dev machine**: Ubuntu (Linux)
 - **IDE**: PyCharm
+- **Version control**: Git with GitHub repository
 
 ## Current Status
-**Phase**: Build Mode - Subtask 1 partially complete (blocked on wifi)
-**Last Updated**: Project structure and config files created; dependencies not yet installed
+**Phase**: Build Mode - MVP Complete! 🎉
+**Last Updated**: All core features implemented and tested
 
-## Next Steps
+## Completed Tasks
 1. ✅ Planning Mode complete
 2. ✅ Architecture Mode complete
-3. **Build Mode** - In progress:
-   - ✅ Subtask 1a: Project structure created (server/, client/src/components/, etc.)
-   - ✅ Subtask 1b: package.json files created for server and client
-   - ✅ Subtask 1c: README.md and .gitignore created
-   - ⏳ Subtask 1d: Install dependencies (needs stable internet)
-     - `sudo apt-get install -y nodejs` (NodeSource repo already configured)
-     - `cd server && npm install`
-     - `cd client && npm install`
-   - ⬜ Subtask 2: Build basic server (index.js, gameState.js skeleton)
-   - ⬜ Subtask 3: Build game logic (gameLogic.js - win detection, move validation)
-   - ⬜ Subtask 4: React client skeleton (App.js, index.js, index.html)
-   - ⬜ Subtask 5: Login component + join event
-   - ⬜ Subtask 6: Lobby component + user list + challenge flow
-   - ⬜ Subtask 7: Game + Board components + move/win logic
-   - ⬜ Subtask 8: Rematch functionality
-   - ⬜ Subtask 9: Polish and end-to-end testing
-   - ⬜ (Later) Docker configuration
+3. ✅ Build Mode - MVP complete:
+   - ✅ Subtask 1: Project structure and dependencies
+   - ✅ Subtask 2: Server implementation (index.js, gameState.js, gameLogic.js)
+   - ✅ Subtask 3: React client implementation (all components)
+   - ✅ Subtask 4: End-to-end testing and bug fixes
+     - Fixed case-sensitive username bug
+     - Fixed winner display bug (was comparing username to symbol)
+
+## Bugs Fixed
+1. **Case-sensitive usernames**: Username uniqueness now case-insensitive (Bob and bob cannot coexist)
+2. **Winner display**: Fixed logic to compare winning symbol instead of username
+
+## Testing Completed
+- ✅ Login and username uniqueness (case-insensitive)
+- ✅ Lobby user list updates
+- ✅ Challenge flow (send, accept, decline)
+- ✅ Real-time game board updates
+- ✅ Win detection and game over display
+- ✅ Rematch functionality
+- ✅ Return to lobby functionality
+- ✅ Multiple board sizes with custom win conditions
+
+## Next Steps (Optional Enhancements)
+- ⬜ Deploy to Railway or Render for public access
+- ⬜ Add Docker configuration
+- ⬜ Implement hover indicator on board cells
+- ⬜ Add game history and replay functionality
+- ⬜ Implement AI opponent
+- ⬜ Add chat feature
+- ⬜ Visual enhancements (animations, sound effects)
+- ⬜ Leaderboards and statistics
 
 ## Known Issues / TODOs
-- Clarify leaderboard/statistics requirements (deferred to post-MVP)
-- Decide if we need persistent user identity across sessions (deferred to post-MVP)
-- Docker setup (deferred until user has Docker available)
-- Dependencies not yet installed (waiting for stable wifi)
+*(None currently - MVP is feature-complete)*
 
 ## Questions / Open Items
 *(None currently)*
