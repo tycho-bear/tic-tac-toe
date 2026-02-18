@@ -5,7 +5,7 @@ A real-time multiplayer tic-tac-toe game where two players can connect via brows
 
 ## Project Goals & Scope
 
-### Core Features (MVP)
+### Core Features (MVP) - ✅ COMPLETE
 - Real-time multiplayer gameplay (moves appear instantly on both screens)
 - Lobby system where players can see waiting players and challenge them
 - Simple name-based identification (no authentication)
@@ -24,6 +24,7 @@ A real-time multiplayer tic-tac-toe game where two players can connect via brows
 - Spectator mode
 - Leaderboards and statistics
 - Hover indicator on board: when hovering over an empty cell on your turn, show a faint version of your symbol (X or O) as a preview of the potential move
+- Challenge status indicator: show "waiting on challenge..." next to a user's name when you've challenged them, until they respond or you challenge someone else
 
 ## Requirements & Decisions
 
@@ -116,7 +117,9 @@ tic-tac-toe/
 │   ├── gameLogic.js            # Win detection, move validation, board utilities
 │   └── gameState.js            # In-memory state: users, games, challenges
 ├── .gitignore
-├── Dockerfile                  # For future Docker deployment
+├── .dockerignore
+├── Dockerfile                  # Multi-stage Docker build
+├── docker-compose.yml          # For local Docker testing
 ├── Claude.md                   # This file
 └── README.md
 ```
@@ -140,9 +143,10 @@ tic-tac-toe/
 - **Post-MVP**: PostgreSQL or MongoDB for game history
 
 ### Deployment
-- **Development**: Local (Node.js + browser, no Docker needed)
-- **Production**: Railway or Render (free tier, good WebSocket support)
-- **Docker**: Will be added later for consistent deployments
+- **Development**: Local (npm run dev for hot-reload)
+- **Testing**: Docker locally with `docker build` and `docker run`
+- **Production**: Render (deployed via GitHub integration)
+- **Live URL**: https://tic-tac-toe-pfh0.onrender.com/
 
 ## Coding Conventions
 - Use clear, descriptive variable names
@@ -154,13 +158,14 @@ tic-tac-toe/
 - **Primary dev machine**: Windows
   - Node.js v20.10.0, npm 10.2.3
   - Project path: `C:\Users\Tycho\Documents\Projects\Tic-tac-toe`
+  - Docker Desktop installed
 - **Secondary dev machine**: Ubuntu (Linux)
 - **IDE**: PyCharm
 - **Version control**: Git with GitHub repository
 
 ## Current Status
-**Phase**: Build Mode - MVP Complete! 🎉
-**Last Updated**: All core features implemented and tested
+**Phase**: MVP Deployed! 🚀
+**Last Updated**: Docker configuration complete, app deployed to Render
 
 ## Completed Tasks
 1. ✅ Planning Mode complete
@@ -170,12 +175,21 @@ tic-tac-toe/
    - ✅ Subtask 2: Server implementation (index.js, gameState.js, gameLogic.js)
    - ✅ Subtask 3: React client implementation (all components)
    - ✅ Subtask 4: End-to-end testing and bug fixes
-     - Fixed case-sensitive username bug
-     - Fixed winner display bug (was comparing username to symbol)
+4. ✅ Docker configuration:
+   - ✅ Multi-stage Dockerfile for optimized builds
+   - ✅ docker-compose.yml for local testing
+   - ✅ .dockerignore for efficient builds
+   - ✅ Production environment configuration (server and client)
+5. ✅ Deployment to Render:
+   - ✅ GitHub integration
+   - ✅ Automatic deploys from repository
+   - ✅ Live at https://tic-tac-toe-pfh0.onrender.com/
 
 ## Bugs Fixed
 1. **Case-sensitive usernames**: Username uniqueness now case-insensitive (Bob and bob cannot coexist)
 2. **Winner display**: Fixed logic to compare winning symbol instead of username
+3. **Docker build - npm ci failure**: Fixed package-lock.json sync issue
+4. **Docker build - react-scripts missing**: Changed client stage to install all dependencies (including devDependencies)
 
 ## Testing Completed
 - ✅ Login and username uniqueness (case-insensitive)
@@ -186,19 +200,23 @@ tic-tac-toe/
 - ✅ Rematch functionality
 - ✅ Return to lobby functionality
 - ✅ Multiple board sizes with custom win conditions
+- ✅ Docker local testing (localhost:3001)
+- ✅ Production deployment testing on Render
 
 ## Next Steps (Optional Enhancements)
-- ⬜ Deploy to Railway or Render for public access
-- ⬜ Add Docker configuration
 - ⬜ Implement hover indicator on board cells
-- ⬜ Add game history and replay functionality
+- ⬜ Add challenge status indicator in lobby ("waiting on challenge..." next to challenged user)
+- ⬜ Add game history and replay functionality (requires database)
 - ⬜ Implement AI opponent
-- ⬜ Add chat feature
-- ⬜ Visual enhancements (animations, sound effects)
-- ⬜ Leaderboards and statistics
+- ⬜ Add chat feature between players
+- ⬜ Visual enhancements (animations, sound effects, improved styling)
+- ⬜ Leaderboards and statistics (requires database)
+- ⬜ Multiple simultaneous games per player
+- ⬜ Tournament/bracket modes
+- ⬜ Spectator mode
 
 ## Known Issues / TODOs
-*(None currently - MVP is feature-complete)*
+*(None currently - MVP is feature-complete and deployed)*
 
 ## Questions / Open Items
 *(None currently)*
